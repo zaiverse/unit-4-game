@@ -1,0 +1,45 @@
+html{
+    padding:40px;
+    margin: 0px;
+}
+
+.div2{
+    background: white;
+}
+
+.bgPic{
+    background-image: url("https://media.giphy.com/media/NhiF9eaTPNaU/giphy.gif");
+    background-size: cover;
+    width: 100%;
+}
+
+/* set height and width for the newGame images*/
+.widthnHeight{
+    width: 190px;
+    height: 120px;
+    float: left;
+}
+
+.widthnHeight2{
+    width: 195px;
+    height: 200px;
+    float: left;
+}
+
+.widthnHeight3{
+    width: 175px;
+    height: 160px;
+    float: left;
+}
+
+/* set height and width for the newGame images*/
+
+
+/* set height and width for planets*/
+
+.WidthnHeighPlanets{
+    height: 200px;
+    width: 175px;
+    float: left;
+}
+
