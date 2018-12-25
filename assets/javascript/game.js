@@ -16,7 +16,6 @@ function Player(playerType, health, attack, defense){
 }
 
 
-
 //set constructor for enemy
 
 function Enemy(enemyType, health, attack, defense){
@@ -26,7 +25,7 @@ function Enemy(enemyType, health, attack, defense){
     this.defense = defense;
 }
 
-
+//set stats for the player choices
 let playerAndEnemyStats ={
     playerStats: function(playerType){
         switch(playerType){
@@ -42,16 +41,18 @@ let playerAndEnemyStats ={
 
         }
     },
+    //set the inner HTML for the player choice
     playerStatsinnerHTML: function(){
         
-        $('<h3>Your Stats</h3><p>Health: ' + player.health + ' </p><p>Attack: ' + player.attack +'</p><p>Defense: ' + player.defense + '</p>' ).appendTo('#Textbox');
+        $('<h3>Your Stats</h3><p class ="healthOfPlayer">Health: ' + player.health + ' </p><p class = "attackOfPlayer">Attack: ' + player.attack +'</p><p class = "defenseOfPlayer">Defense: ' + player.defense + '</p>' ).appendTo('#Textbox');
 
     },
+    //set the enemy stats
     enemyStats: function(enemyType){
         switch(enemyType){
             //earth enemies
             case "spider":
-                enemy = new Enemy(enemyType, 300, 34, 5);
+                enemy = new Enemy(enemyType, 300, 26, 5);
                 break;
             case "Eye":
                 enemy = new Enemy(enemyType, 345, 50, 2);
@@ -63,18 +64,67 @@ let playerAndEnemyStats ={
         }
 
     },
+    //set the inner HTML for the enemy
     enemyStatsinnerHTML: function(){
 
-        $('<h3>Enemy Stats: </h3><p>Health: ' + enemy.health + ' </p><p>Attack: ' + enemy.attack +'</p><p>Defense: ' + enemy.defense + '</p>' ).appendTo('#Textbox');
+        $('<h3>Enemy Stats: </h3><p class ="healthOfEnemy">Health: ' + enemy.health + ' </p><p class ="attackofEnemy">Attack: ' + enemy.attack +'</p><p class ="defense of Enemy">Defense: ' + enemy.defense + '</p>' ).appendTo('#Textbox');
 
     }
 
 
 }
 
+//create a function that accesses the player and enemy info to intiate //attack when a button is clicked.
 let initialAttack = {
-    playerAttack: function(){
-        let playerHealth = $('.healthOfPlayer')
+    attackFunction: function(){
+        let playerHealth = $('.healthOfPlayer');
+        let enemyHealth = $('.healthOfEnemy');
+        let playerAttack = $('.attackOfPlayer');
+        let playerDefense = $('.defenseOfPlayer');
+
+        player.health = 500;
+        $(playerHealth).empty();
+        $('<p>Health: ' + player.health +'</p>').appendTo(playerHealth);
+
+
+        $('<button id ="attack">Attack!</button>').appendTo('#buttonDialog');
+        $('#attack').on("click", function(){
+
+            if(enemy.health > 0 && player.health > 0){
+            enemy.health = enemy.health - player.attack + enemy.defense;
+            player.health = player.health - enemy.attack + player.defense
+
+            $(enemyHealth).empty();
+            $('<p>Health: ' + enemy.health +'</p>').appendTo(enemyHealth);
+            $(playerHealth).empty();
+            $('<p>Health: ' + player.health +'</p>').appendTo(playerHealth);
+            
+            }
+            else if(player.health <= 0){
+            $(playerHealth).empty();
+            $('<p>Health: 0</p>').appendTo(playerHealth);
+            alert("You died");
+                }
+            else if (enemy.health <= 0){
+            $(enemyHealth).empty();
+            $('<p>Health: 0</p>').appendTo(enemyHealth);
+            alert("You killed it");
+
+                player.attack = player.attack + 8;
+                player.defense = player.defense + 2;
+
+                alert("You increased your attack to: " + player.attack);
+                alert("You increased your defense to: " + player.defense);
+                $(playerAttack).empty();
+                $('<p>Attack: ' + player.attack + '</p>').appendTo(playerAttack);
+                $(playerDefense).empty();
+                $('<p>Defense: ' + player.defense + '</p>').appendTo(playerDefense);
+
+                 //return to earth selections
+                reset();
+                earthAdventure();
+            }
+        })
     }
 }
 
@@ -231,9 +281,17 @@ function beginMission(){
     })
 }
 
+//create function to reference if player gets killed
+function continueGame(){
+    reset();
+    $()
+}
+
 var earthDialog = [
 "You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight."
 ]
+
+
 //explore Earth
 function earthAdventure(){
     $('<p>' + earthDialog[0] + '</p>').appendTo('#Textbox');
@@ -247,10 +305,9 @@ function earthAdventure(){
             playerAndEnemyStats.enemyStats("spider");
             playerAndEnemyStats.playerStatsinnerHTML();
             playerAndEnemyStats.enemyStatsinnerHTML();
+            initialAttack.attackFunction();
             $('<div id = "spider"></div>').appendTo("#containerDiv")
             $('#spider').html('<img src = "assets/images/ragno.gif"' + 'class = "WidthnHeighPlanets"/>');
-            
-
         })
     })
 
