@@ -103,7 +103,18 @@ let initialAttack = {
             else if(player.health <= 0){
             $(playerHealth).empty();
             $('<p>Health: 0</p>').appendTo(playerHealth);
-            alert("You died");
+            reset();
+            $('<h2>YOU DIED</h2>').appendTo("#containerDiv");
+
+            $('<button id = "continue">Continue</button>').appendTo("#Textbox");
+            $('<button id = "endGame">End Game</button>').appendTo("#Textbox");
+
+            $('#continue').click(function() {
+                beginMission();
+            });
+            $('#endGame').click(function() {
+                window.location = "index.html";
+            });
                 }
             else if (enemy.health <= 0){
             $(enemyHealth).empty();
@@ -120,12 +131,26 @@ let initialAttack = {
                 $(playerDefense).empty();
                 $('<p>Defense: ' + player.defense + '</p>').appendTo(playerDefense);
 
-                 //return to earth selections
+                //display code for player to unlock moon
+                if(enemy.enemyType === "Eye"){
+                    reset();
+                    $('<h3>The creature seems to have dropped something. It reads: </h3>').appendTo("#Textbox");
+                    $('<h5>4568</h5>').appendTo("#Textbox");
+                    $("<button id = 'continue'>Continue</button>").appendTo('#buttonDialog');
+                    $('#continue').on("click", function(){
+                        reset();
+                        earthAdventure();
+                    })
+
+                }else{
+                //return to earth selections
                 reset();
                 earthAdventure();
+                }
+                
             }
         })
-    }
+    },
 }
 
 
@@ -288,7 +313,7 @@ function continueGame(){
 }
 
 var earthDialog = [
-"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight."
+"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it."
 ]
 
 
@@ -308,12 +333,41 @@ function earthAdventure(){
             initialAttack.attackFunction();
             $('<div id = "spider"></div>').appendTo("#containerDiv")
             $('#spider').html('<img src = "assets/images/ragno.gif"' + 'class = "WidthnHeighPlanets"/>');
+
         })
     })
 
-    $('<button></button>').appendTo('#containerDiv');
+    $('<button id ="shroudedForest">Shrouded forest</button>').appendTo('#containerDiv');
+    $('#shroudedForest').on("click", function(){
+        reset();
+        $('<p>' + earthDialog[2] + '</p>').appendTo('#Textbox');
+        $('<button id = "fight">Fight it?</button>').appendTo('#buttonDialog');
+        $('<button id = "avoid">Explore another area</button>').appendTo('#buttonDialog');
+        $('#fight').on("click", function(){
+            reset();
+            playerAndEnemyStats.enemyStats("Eye");
+            playerAndEnemyStats.playerStatsinnerHTML();
+            playerAndEnemyStats.enemyStatsinnerHTML();
+            initialAttack.attackFunction();
+            $('<div id = "eye"></div>').appendTo("#containerDiv")
+            $('#eye').html('<img src = "assets/images/floatingEye.gif"' + 'class = "WidthnHeighPlanets"/>');
+        })
+        $('#avoid').on("click",function(){
+            reset();
+            earthAdventure();
+        })
+    })
 
-    $('<button></button>').appendTo('#containerDiv');
+    $('<button>Rocky Waterfall</button>').appendTo('#containerDiv');
+    $('#spaceCraft').on("click", function(){
+        reset();
+        playerAndEnemyStats.enemyStats("weirdTurtle");
+        playerAndEnemyStats.playerStatsinnerHTML();
+        initialAttack.attackFunction();
+        $('<div id = "turtle"></div>').appendTo("#containerDiv")
+        $('#turtle').html('<img src = "assets/images/Crawling_Horror.gif"' + 'class = "WidthnHeighPlanets"/>');
+        
+    })
 
     $('<button id ="spaceCraft">Back to spacecraft</button>').appendTo('#containerDiv');
     $('#spaceCraft').on("click", function(){
