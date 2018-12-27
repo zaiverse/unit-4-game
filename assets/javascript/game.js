@@ -456,7 +456,7 @@ function moonAdventure(){
                 playerAndEnemyStats.enemyStatsinnerHTML();
                 initialAttack.attackFunction();
             }else{
-                alert("Please enter the name of the creature")
+                alert("Incorrect")
             }
         })
         $('#return').on("click",function(){
