@@ -4,6 +4,8 @@ var fighterTwo = $('#fighter-two');
 var fighterThree = $('#fighter-three');
 var userName = '';
 var nameOfCreature = '';
+var urbanLegendsInput = '';
+var urbanLegendCount = 0;
 let player;
 let enemy;
 
@@ -64,6 +66,8 @@ let playerAndEnemyStats ={
             case "siren":
                 enemy = new Enemy(enemyType, 500, 75, 15);
                 break;
+            case "boss":
+                enemy = new Enemy(enemyType, 700, 85, 30);
                 
         }
 
@@ -104,6 +108,7 @@ let initialAttack = {
             $('<p>Health: ' + player.health +'</p>').appendTo(playerHealth);
             
             }
+                //player dies
             else if(player.health <= 0){
             $(playerHealth).empty();
             $('<p>Health: 0</p>').appendTo(playerHealth);
@@ -120,6 +125,7 @@ let initialAttack = {
                 window.location = "index.html";
             });
                 }
+                //enemy dies
             else if (enemy.health <= 0){
             $(enemyHealth).empty();
             $('<p>Health: 0</p>').appendTo(enemyHealth);
@@ -139,13 +145,22 @@ let initialAttack = {
                 if(enemy.enemyType === "Eye"){
                     reset();
                     $('<h3>The creature seems to have dropped something. It reads: </h3>').appendTo("#Textbox");
-                    $('<h5> They know something you do not. It is what you search and something they can not have. Call them by their name if you wish to challenge their kind.</h5>').appendTo("#Textbox");
+                    $('<p> They know something you do not. It is what you search and something they can not have. Call them by their name if you wish to challenge their kind.</p>').appendTo("#Textbox");
                     $("<button id = 'continue'>Continue</button>").appendTo('#buttonDialog');
                     $('#continue').on("click", function(){
                         reset();
                         earthAdventure();
                     })
 
+                }else if(enemy.enemyType === "siren"){
+                    reset();
+                    $('<h3>The sirens begin to sing in unison the following words </h3>').appendTo("#Textbox");
+                    $('<p>Name the three urban legends that remain on Earth and the ones that remain will acknowledge your presence</p>').appendTo("#Textbox");
+                    $("<button id = 'continueBack'>Continue</button>").appendTo('#buttonDialog');
+                    $('#continueBack').on("click", function(){
+                    reset();
+                    MarsAdventure();
+                    })
                 }else{
                 //return to earth selections
                 reset();
@@ -155,6 +170,26 @@ let initialAttack = {
             }
         })
     },
+    //create a function that will accept the users input for Mars code pad
+    passcode: function(){
+        var urbanLegends = ["evil eye", "the spider bite", "loch ness monster"];
+        var input = $('<input id ="input"></input>').appendTo('#buttonDialog');
+        var button = $('<button>Submit</button>').appendTo('#buttonDialog');
+        urbanLegendsInput = input.val();
+
+            $(button).on("click", function(){
+                if(urbanLegends.indexOf(urbanLegendsInput.toLocaleLowerCase())){
+                    urbanLegendCount++;
+                    alert("correct");
+                    $('#input').val('');
+                    if(urbanLegendCount === 3){
+                        alert("You guessed all urban legends");
+                    }
+                }else{
+                    alert("Incorrect");
+                }
+        })
+    }
 }
 
 
@@ -314,7 +349,18 @@ function beginMission(){
 
     //if player chooses mars for destinations
     $('#Mars').on("click",function(){
+        $("#Textbox").empty();
+        $('#buttonDialog').empty();
 
+        $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
+        $("<div><p>None-Hard</p></div>").appendTo("#Textbox");
+
+        $("<button id = 'chooseMars'>Explore planet</button>").appendTo("#buttonDialog");
+
+        $('#chooseMars').on("click", function(){
+            reset();
+            MarsAdventure();
+        })
     })
 
     //if player chooses moon for destination
@@ -325,7 +371,7 @@ function beginMission(){
         $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
         $("<div><p>Intermidiate</p></div>").appendTo("#Textbox");
 
-        $("<button id = 'chooseMoon'>Explore planet</button>").appendTo("#buttonDialog");
+        $("<button id = 'chooseMoon'>Explore moon</button>").appendTo("#buttonDialog");
 
         $('#chooseMoon').on("click", function(){
             reset();
@@ -341,7 +387,7 @@ function continueGame(){
 }
 
 var earthDialog = [
-"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it.", "You head towards the sound of falling water until you reach a clearing among trees. Clear blue water flows over a steep ledge and crashes into a rocky pool below. There is a small creature peering through the surface of the water. It stares at you for awhile until it deems you a threat, then rushes out from the water, opening its mouth wide to display a sharp row of bottom teeth."
+"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it.", "You head towards the sound of falling water until you reach a clearing among trees. Clear blue water flows over a steep ledge and crashes into a rocky pool below. You suddenly crave a drink, but the levels of the water seem to have high levels of toxity. It would be best to avoid drinking it. As you scan the area for any signal of activity, you notice a small creature peering through the surface of the water. It stares at you for awhile until it deems you a threat, then rushes out from the water, opening its mouth wide to display a sharp row of bottom teeth."
 ]
 
 
@@ -414,12 +460,25 @@ function earthAdventure(){
 
 //mars dialog
 marsDialog = [
-    "You easily land your spaceship on the rocky ground of the planet and exit your ship. Ahead you see a circular structure, almost like a bubble. The land surrounding you is mostly a red dust, but inside the structure you see green trees and blossomming plants."
+    "You easily land your spaceship on the rocky ground of the planet and exit your ship. Ahead you see a circular structure, almost like a bubble. The land surrounding you is mostly a red dust, but inside the structure you see green trees and blossomming plants as well as tall intricate structures. Approach it?", "There is a locked door and a passcode next to it. It seems to require three different inputs. What will you enter? (submit each one individually)"
 ]
 
 //explore mars
 function MarsAdventure(){
+     reset();
+     $('<p>' + marsDialog[0] + '</p>').appendTo('#Textbox');
+    $('<button id ="yes" >Yes</button>').appendTo('#buttonDialog');
+    $('<button id = "no">No</button>').appendTo('#buttonDialog');
 
+    $('#yes').on("click", function(){
+    reset();
+    $('<p>' + marsDialog[1] + '</p>').appendTo('#Textbox');
+    initialAttack.passcode();
+    })
+
+    $('#no').on("click", function(){
+        beginMission();
+    })
 }
 
 //moon dialog
