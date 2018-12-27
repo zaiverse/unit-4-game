@@ -284,7 +284,7 @@ function beginMission(){
     reset();
     //create divs for the pictures of planets and moon
     $('<div id = "Earth"></div>').appendTo("#containerDiv")
-    $('#Earth').html('<img src = "https://cdn.pixabay.com/photo/2016/04/24/04/53/globe-1348777_960_720.png"' + 'class = "WidthnHeighPlanets"/>');
+    $('#Earth').html('<img src = "http://www.pngall.com/wp-content/uploads/2016/06/Earth-PNG-Pic.png"' + 'class = "WidthnHeighPlanets"/>');
 
     $('<div id = "Mars"></div>').appendTo("#containerDiv")
     $('#Mars').html('<img src = "https://upload.wikimedia.org/wikipedia/commons/6/68/Mars_%2816716283421%29_-_Transparent_background.png"' + 'class = "WidthnHeighPlanets"/>');
