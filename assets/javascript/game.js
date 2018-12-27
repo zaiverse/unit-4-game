@@ -82,6 +82,14 @@ let playerAndEnemyStats ={
 
 }
 
+var robotDialog = [
+    'I see their signal finally had their desired outcome. Much too late I fear.','You received a signal recently, correct?'
+]
+
+var buttonMarsDialog = [
+    'what are you talking about?', 'Yes, I was sent to investigate a signal sent by an intelligent species. Would that happen to be your kind?'
+]
+
 //create a function that accesses the player and enemy info to intiate //attack when a button is clicked.
 let initialAttack = {
     attackFunction: function(){
@@ -184,11 +192,18 @@ let initialAttack = {
                     $('#input').val('');
                     if(urbanLegendCount === 3){
                         alert("You guessed all urban legends");
+                        reset();
+                        initialAttack.marsRobot();
                     }
                 }else{
                     alert("Incorrect");
                 }
         })
+    },
+    marsRobot: function(){
+        $('<div id = "robotAi"></div>').appendTo('#containerDiv');
+        $('#robotAi').html('<img src = "https://logosrated.net/wp-content/uploads/2016/08/ESET-(NOD32)-Logo-1.png"'  + 'class = "widthnHeight"/>');
+        
     }
 }
 
