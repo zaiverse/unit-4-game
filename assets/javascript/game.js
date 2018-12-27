@@ -3,6 +3,7 @@ var fighterOne = $('#fighter-one');
 var fighterTwo = $('#fighter-two');
 var fighterThree = $('#fighter-three');
 var userName = '';
+var nameOfCreature = '';
 let player;
 let enemy;
 
@@ -30,13 +31,13 @@ let playerAndEnemyStats ={
     playerStats: function(playerType){
         switch(playerType){
             case "I5":
-                player = new Player(playerType, 500, 23, 6);
+                player = new Player(playerType, 700, 23, 6);
                 break;
             case "Pioneer":
-                player = new Player(playerType, 500, 18, 10);
+                player = new Player(playerType, 700, 18, 11);
                 break;
             case "Eight":
-                player = new Player(playerType, 500, 20, 9);
+                player = new Player(playerType, 700, 20, 9);
                 break;
 
         }
@@ -52,13 +53,16 @@ let playerAndEnemyStats ={
         switch(enemyType){
             //earth enemies
             case "spider":
-                enemy = new Enemy(enemyType, 300, 26, 5);
+                enemy = new Enemy(enemyType, 300, 26, 8);
                 break;
             case "Eye":
-                enemy = new Enemy(enemyType, 345, 50, 2);
+                enemy = new Enemy(enemyType, 470, 60, 10);
                 break;
             case "weirdTurtle":
-                enemy = new Enemy(enemyType, 400, 24, 10);
+                enemy = new Enemy(enemyType, 360, 37, 9);
+                break;
+            case "siren":
+                enemy = new Enemy(enemyType, 500, 75, 15);
                 break;
                 
         }
@@ -82,7 +86,7 @@ let initialAttack = {
         let playerAttack = $('.attackOfPlayer');
         let playerDefense = $('.defenseOfPlayer');
 
-        player.health = 500;
+        player.health = 700;
         $(playerHealth).empty();
         $('<p>Health: ' + player.health +'</p>').appendTo(playerHealth);
 
@@ -135,7 +139,7 @@ let initialAttack = {
                 if(enemy.enemyType === "Eye"){
                     reset();
                     $('<h3>The creature seems to have dropped something. It reads: </h3>').appendTo("#Textbox");
-                    $('<h5>4568</h5>').appendTo("#Textbox");
+                    $('<h5> They know something you do not. It is what you search and something they can not have. Call them by their name if you wish to challenge their kind.</h5>').appendTo("#Textbox");
                     $("<button id = 'continue'>Continue</button>").appendTo('#buttonDialog');
                     $('#continue').on("click", function(){
                         reset();
@@ -172,7 +176,7 @@ function newGame(){
         $('#Textbox').empty();
 
         //describe the spacecraft and create button for option choice
-        $("<p>The voyeger I5 is reliant and dependable in the battlefield. Contructed in WW6, the I5 was the last spaceship created by human kind before their complete disapperance. </p>").appendTo("#Textbox");
+        $("<p>The voyeger I5 is reliant and dependable in the battlefield. Contructed in Interstellar War II, the I5 is one of the lastest spaceCrafts built by the Galactic Interstellar Committee.</p>"+ "<h5>Stats</h5>" + "<p>Health: 700</p>" + "<p>Attack: 23</p>" + "<p>Defense: 6</p>").appendTo("#Textbox");
 
         $("<button id = 'chooseI5'>Choose I5</button>").appendTo("#Textbox");
 
@@ -185,11 +189,11 @@ function newGame(){
     //if player clicks on the second spacecraft
     $('#div2').on("click", function(){
         $('#Textbox').empty();
-       $("<p> good ship ypup </p>").appendTo("#Textbox");
+       $("<p>This spaceCraft is known as the Pioneer, one of the first to travel intergalactic space. It is built by the species ENio, which are known as the founders of Galactic Interstellar Committee. </p>"+ "<h5>Stats</h5>" + "<p>Health: 700</p>" + "<p>Attack: 18 </p>" + "<p>Defense: 11</p>").appendTo("#Textbox");
 
-        $("<button id = 'chooseI5'>Choose I5</button>").appendTo("#Textbox");
+        $("<button id = 'choosePioneer'>Choose Pioneer</button>").appendTo("#Textbox");
 
-        $('#chooseI5').on("click", function(){
+        $('#choosePioneer').on("click", function(){
             playerAndEnemyStats.playerStats("Pioneer");
             beginAdventure();
         })
@@ -199,11 +203,12 @@ function newGame(){
     $('#div3').on("click", function(){
         $('#Textbox').empty();
 
-        $("<p>dancing shipp </p>").appendTo("#Textbox");
+        $("<p>This is one of the most common spaceCrafts known to all species. It is compact and agile, meaning it is easily able to land in any kind of environment. It's most common use is by soldiers belonging to the Galactic Interstellar Committee. </p>" + "<h5>Stats</h5>" + "<p>Health: 700</p>" + "<p>Attack: 20</p>" + "<p>Defense: 9</p>").appendTo("#Textbox");
 
-        $("<button id = 'chooseI5'>Choose I5</button>").appendTo("#Textbox");
+
+        $("<button id = 'chooseEight'>Choose Eight</button>").appendTo("#Textbox");
         
-        $('#chooseI5').on("click", function(){
+        $('#chooseEight').on("click", function(){
             playerAndEnemyStats.playerStats("Eight");
             beginAdventure();
         })
@@ -222,7 +227,7 @@ function reset(){
 }
 
 //text choices for beginAdventure function
-var textInputforIntro = ["welcome adventurer! Please enter your assigned name: ", " Welcome ", ", we are glad to see you again. Your last visit to the Galatic Interstellar Committee was ID 860 - 2 - 14 billion. Todays ID is 870 - 2 -14 billion. You have received a special mission from the Interstellar Committe, do you accept it?", "On ID 865 - 2 - 14 billion, the GIC received a signal from a distant galaxy located in the Virgo Supercluster. The signal seems to be transmitted by an intelligent species and is under immediate surpervision. Your mission is to explore the solar system for sign of life. Good Luck! We trust in your past and future dediction to GIC."];
+var textInputforIntro = ["welcome adventurer! Please enter your assigned name: ", " Welcome ", ", we are glad to see you again. Your last visit to the Galactic Interstellar Committee was ID 860 - 2 - 14 billion. Todays ID is 870 - 2 -14 billion. You have received a special mission from the Interstellar Committe, do you accept it?", "On ID 865 - 2 - 14 billion, the GIC received a signal from a distant galaxy located in the Virgo Supercluster. The signal seems to be transmitted by an intelligent species and is under immediate surpervision. Your mission is to explore the solar system for sign of life. Good Luck! We trust in your past and future dediction to GIC."];
 
 //Introduction to mission
 function beginAdventure(){
@@ -237,7 +242,7 @@ function beginAdventure(){
 
     //grab user input and then give choice to accept mission
     (continueButton).on('click', function(){
-        var userName = inputBox.val();
+        userName = inputBox.val();
         reset();
         $("<p>" + textInputforIntro[1] + userName + textInputforIntro[2] + "</p>").appendTo('#Textbox');
 
@@ -292,6 +297,8 @@ function beginMission(){
     //if player chooses Earth as destination
     $('#Earth').on("click", function(){
         $('#Textbox').empty();
+        $('#buttonDialog').empty();
+
 
         $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
         $("<div><p>Easy</p></div>").appendTo("#Textbox");
@@ -304,6 +311,27 @@ function beginMission(){
             earthAdventure();
         })
     })
+
+    //if player chooses mars for destinations
+    $('#Mars').on("click",function(){
+
+    })
+
+    //if player chooses moon for destination
+    $('#Moon').on("click", function(){
+        $("#Textbox").empty();
+        $('#buttonDialog').empty();
+
+        $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
+        $("<div><p>Intermidiate</p></div>").appendTo("#Textbox");
+
+        $("<button id = 'chooseMoon'>Explore planet</button>").appendTo("#buttonDialog");
+
+        $('#chooseMoon').on("click", function(){
+            reset();
+            moonAdventure();
+        })
+    })
 }
 
 //create function to reference if player gets killed
@@ -313,14 +341,14 @@ function continueGame(){
 }
 
 var earthDialog = [
-"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it."
+"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it.", "You head towards the sound of falling water until you reach a clearing among trees. Clear blue water flows over a steep ledge and crashes into a rocky pool below. There is a small creature peering through the surface of the water. It stares at you for awhile until it deems you a threat, then rushes out from the water, opening its mouth wide to display a sharp row of bottom teeth."
 ]
 
 
 //explore Earth
 function earthAdventure(){
     $('<p>' + earthDialog[0] + '</p>').appendTo('#Textbox');
-    $('<button id = "woodenStructure">Abandoned wooden structure</button>').appendTo('#containerDiv');
+    $('<button id = "woodenStructure">Abandoned wooden structure</button>').appendTo('#buttonDialog');
     $('#woodenStructure').on("click", function(){
         reset();
         $('<p>' + earthDialog[1] + '</p>').appendTo('#Textbox');
@@ -337,7 +365,7 @@ function earthAdventure(){
         })
     })
 
-    $('<button id ="shroudedForest">Shrouded forest</button>').appendTo('#containerDiv');
+    $('<button id ="shroudedForest">Shrouded forest</button>').appendTo('#buttonDialog');
     $('#shroudedForest').on("click", function(){
         reset();
         $('<p>' + earthDialog[2] + '</p>').appendTo('#Textbox');
@@ -358,22 +386,87 @@ function earthAdventure(){
         })
     })
 
-    $('<button>Rocky Waterfall</button>').appendTo('#containerDiv');
-    $('#spaceCraft').on("click", function(){
+    $('<button id ="rockyWaterfall" >Rocky Waterfall</button>').appendTo('#buttonDialog');
+    $('#rockyWaterfall').on("click", function(){
         reset();
-        playerAndEnemyStats.enemyStats("weirdTurtle");
-        playerAndEnemyStats.playerStatsinnerHTML();
-        initialAttack.attackFunction();
-        $('<div id = "turtle"></div>').appendTo("#containerDiv")
-        $('#turtle').html('<img src = "assets/images/Crawling_Horror.gif"' + 'class = "WidthnHeighPlanets"/>');
+        $('<p>' + earthDialog[3] + '</p>').appendTo('#Textbox');
+        $('<button id = "fightIt">Fight!</button>').appendTo('#buttonDialog');
+        $('#fightIt').on("click",function(){
+            reset();
+            playerAndEnemyStats.enemyStats("weirdTurtle");
+            playerAndEnemyStats.playerStatsinnerHTML();
+            playerAndEnemyStats.enemyStatsinnerHTML();
+            initialAttack.attackFunction();
+            $('<div id = "turtle"></div>').appendTo("#containerDiv")
+            $('#turtle').html('<img src = "https://vignette.wikia.nocookie.net/dont-starve-game/images/4/4b/Crawling_horror_large_by_mf99k-d9fruch.gif/revision/latest?cb=20151107073752"' + 'class = "WidthnHeighPlanets"/>');
+        })
         
     })
 
-    $('<button id ="spaceCraft">Back to spacecraft</button>').appendTo('#containerDiv');
+    $('<button id ="spaceCraft">Back to spacecraft</button>').appendTo('#buttonDialog');
     $('#spaceCraft').on("click", function(){
         reset();
         beginMission();
     })
 
+
+}
+
+//mars dialog
+marsDialog = [
+    "You easily land your spaceship on the rocky ground of the planet and exit your ship. Ahead you see a circular structure, almost like a bubble. The land surrounding you is mostly a red dust, but inside the structure you see green trees and blossomming plants."
+]
+
+//explore mars
+function MarsAdventure(){
+
+}
+
+//moon dialog
+var moonDialog = [
+    "You have trouble finding an even surface to land your spacecraft, but eventually you manage to land without much difficulty and exit your ship. A signal of activity is coming from one locations, should you go explore?", "As you get closer to the signal, you can hear a beautiful sound echo from a cave in the distance. The harmonious sound lures you in its direction. You head down narrow steps made of ice, the space is tight and barely enough for one to squeeze through. There is a large body of water ahead past a small patch of ice at the bottom of the stairway. The beautiful sound bounces off the walls of the caven. It sounds of singing, but not of a single entity, but a choreographed orchestra of voices. As you emorse yourself in the singing, the voices hush and silence follows hushed whispers. It is difficult to see, but you can barely make out elegantly shapes moving in the water. They gather at a rocky area centered in the cavern and stare at you expectantly. They seem to be waiting for you to say something."
+]
+
+//explore moon
+function moonAdventure(){
+    reset();
+    $('<p>' + moonDialog[0] + '</P>').appendTo("#Textbox");
+    $('<button id = "yes" >Explore</button>').appendTo("#buttonDialog");
+    $('<button id = "no" >Return to craft</button>').appendTo("#buttonDialog");
+
+    $('#yes').on("click", function(){
+        reset();
+        $('<p>' + moonDialog[1] + '</P>').appendTo("#Textbox");
+        $('<div id = "sirens"></div>').appendTo("#containerDiv")
+        $('#sirens').html('<img src = "http://38.media.tumblr.com/a2871961babf82eb790561693651c60e/tumblr_n8vg2vgVgJ1tggtmco1_500.gif"' + 'class = "WidthnHeighPlanets"/>');
+
+        var inputBox = $('<input></input>').appendTo('#buttonDialog');
+        var confirm = $('<button>Next</button>').appendTo('#buttonDialog');
+        $('<button id ="return">Return</button>').appendTo('#buttonDialog');
+
+        $(confirm).on("click", function(){
+            nameOfCreature = inputBox.val();
+
+            if(nameOfCreature.toLocaleLowerCase() === "siren" || nameOfCreature.toLocaleLowerCase() === "sirens"){
+                $('#Textbox').empty();
+                $('#buttonDialog').empty();
+
+                playerAndEnemyStats.enemyStats("siren");
+                playerAndEnemyStats.playerStatsinnerHTML();
+                playerAndEnemyStats.enemyStatsinnerHTML();
+                initialAttack.attackFunction();
+            }else{
+                alert("Please enter the name of the creature")
+            }
+        })
+        $('#return').on("click",function(){
+            moonAdventure();
+        })
+
+    })
+    $('#no').on("click", function(){
+        reset();
+        beginMission();
+    })
 
 }
