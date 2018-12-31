@@ -83,11 +83,11 @@ let playerAndEnemyStats ={
 }
 
 var robotDialog = [
-    'I see their signal finally had their desired outcome. Much too late I fear.','You received a signal recently, correct?'
+    'I see their signal finally had their desired outcome. Much too late I fear.','You received a signal recently, have you not?', 'No, we were created by the species you seek, but we are not them. The ones you are searching for are known as human kind among us. We are mechanical inventions created by the human species to lessen their work load. From years of inivation, we were born and set to work alongside human kind','', ''
 ]
 
 var buttonMarsDialog = [
-    'what are you talking about?', 'Yes, I was sent to investigate a signal sent by an intelligent species. Would that happen to be your kind?'
+    'what are you talking about?', 'Yes, I was sent to investigate a signal sent by an intelligent species. Would that happen to be your kind?','What happened to their kind?',''
 ]
 
 //create a function that accesses the player and enemy info to intiate //attack when a button is clicked.
@@ -183,6 +183,8 @@ let initialAttack = {
         var urbanLegends = ["evil eye", "the spider bite", "loch ness monster"];
         var input = $('<input id ="input"></input>').appendTo('#buttonDialog');
         var button = $('<button>Submit</button>').appendTo('#buttonDialog');
+        var button1 = $('<button>Return</button>').appendTo('#buttonDialog');
+
         urbanLegendsInput = input.val();
 
             $(button).on("click", function(){
@@ -199,11 +201,32 @@ let initialAttack = {
                     alert("Incorrect");
                 }
         })
+            $(button1).on("click", function(){
+                MarsAdventure();
+            });
     },
     marsRobot: function(){
         $('<div id = "robotAi"></div>').appendTo('#containerDiv');
         $('#robotAi').html('<img src = "https://logosrated.net/wp-content/uploads/2016/08/ESET-(NOD32)-Logo-1.png"'  + 'class = "widthnHeight"/>');
-        
+        var button = $('<button></button>').appendTo('#buttonDialog');
+        var paragraph = $('<p></p>').appendTo('#Textbox');
+
+        $(button).html(buttonMarsDialog[0]);
+        $(paragraph).html(robotDialog[0]);
+
+        $(button).on("click", function(){
+            (button).empty();
+            (paragraph).empty();
+            $(button).html(buttonMarsDialog[1]);
+            $(paragraph).html(robotDialog[1]);
+
+            $(button).on("click", function(){
+                (button).empty();
+                (paragraph).empty();
+                $(button).html(buttonMarsDialog[1]);
+                $(paragraph).html(robotDialog[1]);
+            })
+        })
     }
 }
 
