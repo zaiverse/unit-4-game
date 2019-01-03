@@ -149,18 +149,7 @@ let initialAttack = {
                 $(playerDefense).empty();
                 $('<p>Defense: ' + player.defense + '</p>').appendTo(playerDefense);
 
-                //display code for player to unlock moon
-                if(enemy.enemyType === "Eye"){
-                    reset();
-                    $('<h3>The creature seems to have dropped something. It reads: </h3>').appendTo("#Textbox");
-                    $('<p> They know something you do not. It is what you search and something they can not have. Call them by their name if you wish to challenge their kind.</p>').appendTo("#Textbox");
-                    $("<button id = 'continue'>Continue</button>").appendTo('#buttonDialog');
-                    $('#continue').on("click", function(){
-                        reset();
-                        earthAdventure();
-                    })
-
-                }else if(enemy.enemyType === "siren"){
+               if(enemy.enemyType === "siren"){
                     reset();
                     $('<h3>The sirens begin to sing in unison the following words </h3>').appendTo("#Textbox");
                     $('<p>Name the three urban legends that remain on Earth and the ones that remain will acknowledge your presence</p>').appendTo("#Textbox");
@@ -177,57 +166,8 @@ let initialAttack = {
                 
             }
         })
-    },
-    //create a function that will accept the users input for Mars code pad
-    passcode: function(){
-        var urbanLegends = ["evil eye", "the spider bite", "loch ness monster"];
-        var input = $('<input id ="input"></input>').appendTo('#buttonDialog');
-        var button = $('<button>Submit</button>').appendTo('#buttonDialog');
-        var button1 = $('<button>Return</button>').appendTo('#buttonDialog');
-
-        urbanLegendsInput = input.val();
-
-            $(button).on("click", function(){
-                if(urbanLegends.indexOf(urbanLegendsInput.toLocaleLowerCase())){
-                    urbanLegendCount++;
-                    alert("correct");
-                    $('#input').val('');
-                    if(urbanLegendCount === 3){
-                        alert("You guessed all urban legends");
-                        reset();
-                        initialAttack.marsRobot();
-                    }
-                }else{
-                    alert("Incorrect");
-                }
-        })
-            $(button1).on("click", function(){
-                MarsAdventure();
-            });
-    },
-    marsRobot: function(){
-        $('<div id = "robotAi"></div>').appendTo('#containerDiv');
-        $('#robotAi').html('<img src = "https://logosrated.net/wp-content/uploads/2016/08/ESET-(NOD32)-Logo-1.png"'  + 'class = "widthnHeight"/>');
-        var button = $('<button></button>').appendTo('#buttonDialog');
-        var paragraph = $('<p></p>').appendTo('#Textbox');
-
-        $(button).html(buttonMarsDialog[0]);
-        $(paragraph).html(robotDialog[0]);
-
-        $(button).on("click", function(){
-            (button).empty();
-            (paragraph).empty();
-            $(button).html(buttonMarsDialog[1]);
-            $(paragraph).html(robotDialog[1]);
-
-            $(button).on("click", function(){
-                (button).empty();
-                (paragraph).empty();
-                $(button).html(buttonMarsDialog[1]);
-                $(paragraph).html(robotDialog[1]);
-            })
-        })
     }
+    
 }
 
 
@@ -255,7 +195,7 @@ function newGame(){
 
         $('#chooseI5').on("click", function(){
             playerAndEnemyStats.playerStats("I5");
-            beginAdventure();
+            beginMission();
         })
     })
 
@@ -268,7 +208,7 @@ function newGame(){
 
         $('#choosePioneer').on("click", function(){
             playerAndEnemyStats.playerStats("Pioneer");
-            beginAdventure();
+            beginMission();
         })
     })
     
@@ -283,7 +223,7 @@ function newGame(){
         
         $('#chooseEight').on("click", function(){
             playerAndEnemyStats.playerStats("Eight");
-            beginAdventure();
+            beginMission();
         })
     })
     
@@ -299,59 +239,6 @@ function reset(){
     $('#buttonDialog').empty();
 }
 
-//text choices for beginAdventure function
-var textInputforIntro = ["welcome adventurer! Please enter your assigned name: ", " Welcome ", ", we are glad to see you again. Your last visit to the Galactic Interstellar Committee was ID 860 - 2 - 14 billion. Todays ID is 870 - 2 -14 billion. You have received a special mission from the Interstellar Committe, do you accept it?", "On ID 865 - 2 - 14 billion, the GIC received a signal from a distant galaxy located in the Virgo Supercluster. The signal seems to be transmitted by an intelligent species and is under immediate surpervision. Your mission is to explore the solar system for sign of life. Good Luck! We trust in your past and future dediction to GIC."];
-
-//Introduction to mission
-function beginAdventure(){
-    reset();
-    //make sure stats are being transferred
-    console.log(player.attack);
-    console.log(player.defense);
-    // prompt for name
-    $("<p>" + textInputforIntro[0] + "</p>").appendTo('#Textbox');
-    var inputBox = $('<input></input>').appendTo('#buttonDialog');
-    var continueButton = $('<button>Next</button>').appendTo('#buttonDialog');
-
-    //grab user input and then give choice to accept mission
-    (continueButton).on('click', function(){
-        userName = inputBox.val();
-        reset();
-        $("<p>" + textInputforIntro[1] + userName + textInputforIntro[2] + "</p>").appendTo('#Textbox');
-
-        $("<button id = 'yes'>Yes</button>").appendTo('#buttonDialog');
-        $("<button id = 'no'>No</button>").appendTo('#buttonDialog');
-
-        if($('#yes').on("click", function(){
-            reset();
-            $('<p>' + textInputforIntro[3] + '</p>').appendTo('#Textbox');
-            $('<button id ="toSpacecraft">Explore source of signal</button>').appendTo('#buttonDialog');
-            if($('#toSpacecraft').on("click", function(){
-                //reset all divs and head to beginMission function
-                beginMission();
-            }));
-        }));
-        if($('#no').on("click", function(){
-                //you cant start an adventure if you're too scared
-                reset();
-                $('<h1>GAME OVER</h1>').appendTo('#Textbox');
-                $('<button id ="replay">Replay</button>').appendTo('#buttonDialog')
-                $('#replay').on("click", function(){
-                    reset();
-                    newGame();
-                })
-                
-        }));
-    })
-
-    
-
-}
-
-//beginMission text array
-var textInputforMission = [
-    "You reach a stellar system that has eight planets slowly gravitating a star. There seems to be signs of activity in three different locations. One comes from a green and blue planet, another from a brown planet, and the last comes, not from a planet, but from a moon that gravitates a gas planet with stunning rings surrounding its exterier. Which will you explore? "
-]
 
 function beginMission(){
     reset();
@@ -365,7 +252,7 @@ function beginMission(){
     $('<div id = "Moon"></div>').appendTo("#containerDiv")
     $('#Moon').html('<img src = "https://vignette.wikia.nocookie.net/thesolarsystem6361/images/8/86/Enceladus_spacepedia.png/revision/latest?cb=20180302104450"' + 'class = "WidthnHeighPlanets"/>');
 
-    $('<p>' + textInputforMission[0] + '</p>').appendTo('#Textbox');
+    $('<p>Click any to explore</p>').appendTo('#Textbox');
 
     //if player chooses Earth as destination
     $('#Earth').on("click", function(){
@@ -374,7 +261,7 @@ function beginMission(){
 
 
         $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
-        $("<div><p>Easy</p></div>").appendTo("#Textbox");
+        $("<div><p>Easy-Intermidiate</p></div>").appendTo("#Textbox");
 
 
         $("<button id = 'chooseEarth'>Explore planet</button>").appendTo("#buttonDialog");
@@ -391,7 +278,7 @@ function beginMission(){
         $('#buttonDialog').empty();
 
         $("<div><h3>Difficulty:</h3></div>").appendTo("#Textbox");
-        $("<div><p>None-Hard</p></div>").appendTo("#Textbox");
+        $("<div><p>Hard</p></div>").appendTo("#Textbox");
 
         $("<button id = 'chooseMars'>Explore planet</button>").appendTo("#buttonDialog");
 
@@ -424,21 +311,13 @@ function continueGame(){
     $()
 }
 
-var earthDialog = [
-"You easily land your spaceship on the rocky ground of the planet and exit your ship. A signal of activity comes from three different locations, which way would you like to go?", "You step inside a wooden structure and question what it could have been used for in the past. The wood that holds the structure together is rotten, seeming ready to fall apart with just a weak gust of wind. As you take to exploring the foreign structure, you tense at the sound of rustling coming from behind you. Turning around, you come face to face with a creature of eight legs racing towards you. You quickly draw your weapon, ready for a fight.","Cautiously, you begin your descent into the shrouded forest. The fallen leaves from barren trees crunching underneath your sturdy boots. It is difficult to see through the thick mist surrounding you, but you feel safer knowing you have an Interstellar Mapping Device at your disposal. It should be easy enough to find your way back. In the distance lies a dark shape hidden by the mist. Although difficult to make out what it is, the strange shape seems to be moving. As it becomes clearer, it turns to acknowledge your presence. It remains still, floating in place, but stares at your with its one huge and unblinking eye. It gives you the chills just looking at it.", "You head towards the sound of falling water until you reach a clearing among trees. Clear blue water flows over a steep ledge and crashes into a rocky pool below. You suddenly crave a drink, but the levels of the water seem to have high levels of toxity. It would be best to avoid drinking it. As you scan the area for any signal of activity, you notice a small creature peering through the surface of the water. It stares at you for awhile until it deems you a threat, then rushes out from the water, opening its mouth wide to display a sharp row of bottom teeth."
-]
-
 
 //explore Earth
 function earthAdventure(){
-    $('<p>' + earthDialog[0] + '</p>').appendTo('#Textbox');
+    $('<p>Which area would you like to explore?</p>').appendTo('#Textbox');
     $('<button id = "woodenStructure">Abandoned wooden structure</button>').appendTo('#buttonDialog');
     $('#woodenStructure').on("click", function(){
         reset();
-        $('<p>' + earthDialog[1] + '</p>').appendTo('#Textbox');
-        $('<button id = "fight">Fight!</button>').appendTo('#buttonDialog');
-        $('#fight').on("click", function(){
-            reset();
             playerAndEnemyStats.enemyStats("spider");
             playerAndEnemyStats.playerStatsinnerHTML();
             playerAndEnemyStats.enemyStatsinnerHTML();
@@ -447,15 +326,9 @@ function earthAdventure(){
             $('#spider').html('<img src = "assets/images/ragno.gif"' + 'class = "WidthnHeighPlanets"/>');
 
         })
-    })
 
     $('<button id ="shroudedForest">Shrouded forest</button>').appendTo('#buttonDialog');
     $('#shroudedForest').on("click", function(){
-        reset();
-        $('<p>' + earthDialog[2] + '</p>').appendTo('#Textbox');
-        $('<button id = "fight">Fight it?</button>').appendTo('#buttonDialog');
-        $('<button id = "avoid">Explore another area</button>').appendTo('#buttonDialog');
-        $('#fight').on("click", function(){
             reset();
             playerAndEnemyStats.enemyStats("Eye");
             playerAndEnemyStats.playerStatsinnerHTML();
@@ -463,19 +336,10 @@ function earthAdventure(){
             initialAttack.attackFunction();
             $('<div id = "eye"></div>').appendTo("#containerDiv")
             $('#eye').html('<img src = "assets/images/floatingEye.gif"' + 'class = "WidthnHeighPlanets"/>');
-        })
-        $('#avoid').on("click",function(){
-            reset();
-            earthAdventure();
-        })
     })
 
     $('<button id ="rockyWaterfall" >Rocky Waterfall</button>').appendTo('#buttonDialog');
     $('#rockyWaterfall').on("click", function(){
-        reset();
-        $('<p>' + earthDialog[3] + '</p>').appendTo('#Textbox');
-        $('<button id = "fightIt">Fight!</button>').appendTo('#buttonDialog');
-        $('#fightIt').on("click",function(){
             reset();
             playerAndEnemyStats.enemyStats("weirdTurtle");
             playerAndEnemyStats.playerStatsinnerHTML();
@@ -483,7 +347,6 @@ function earthAdventure(){
             initialAttack.attackFunction();
             $('<div id = "turtle"></div>').appendTo("#containerDiv")
             $('#turtle').html('<img src = "https://vignette.wikia.nocookie.net/dont-starve-game/images/4/4b/Crawling_horror_large_by_mf99k-d9fruch.gif/revision/latest?cb=20151107073752"' + 'class = "WidthnHeighPlanets"/>');
-        })
         
     })
 
@@ -496,74 +359,48 @@ function earthAdventure(){
 
 }
 
-//mars dialog
-marsDialog = [
-    "You easily land your spaceship on the rocky ground of the planet and exit your ship. Ahead you see a circular structure, almost like a bubble. The land surrounding you is mostly a red dust, but inside the structure you see green trees and blossomming plants as well as tall intricate structures. Approach it?", "There is a locked door and a passcode next to it. It seems to require three different inputs. What will you enter? (submit each one individually)"
-]
 
 //explore mars
 function MarsAdventure(){
      reset();
-     $('<p>' + marsDialog[0] + '</p>').appendTo('#Textbox');
-    $('<button id ="yes" >Yes</button>').appendTo('#buttonDialog');
-    $('<button id = "no">No</button>').appendTo('#buttonDialog');
+     $('<p>There are three inputs required to unlock this region (submit them individually)</p>').appendTo('#Textbox');
+     var urbanLegends = ["evil eye", "the spider bite", "loch ness monster"];
+     console.log(urbanLegends);
+    $('<input id ="input1"></input>').appendTo('#buttonDialog');
+     var button = $('<button>Submit</button>').appendTo('#buttonDialog');
+     var button1 = $('<button>Return</button>').appendTo('#buttonDialog');
 
-    $('#yes').on("click", function(){
-    reset();
-    $('<p>' + marsDialog[1] + '</p>').appendTo('#Textbox');
-    initialAttack.passcode();
-    })
-
-    $('#no').on("click", function(){
-        beginMission();
-    })
+         $(button).on("click", function(){
+             if($('#input1').val() === urbanLegends[0] || $('#input1').val() === urbanLegends[1] || $('#input1').val() === urbanLegends[2]){
+                 urbanLegendCount++;
+                 alert("correct");
+                 $('#input1').val('');
+                 if(urbanLegendCount === 3){
+                     alert("You guessed all urban legends");
+                     reset();
+                     playerAndEnemyStats.enemyStats("Eye");
+                     playerAndEnemyStats.playerStatsinnerHTML();
+                     playerAndEnemyStats.enemyStatsinnerHTML();
+                     initialAttack.attackFunction();
+                     $('<div id = "eye"></div>').appendTo("#containerDiv")
+                     $('#eye').html('<img src = "assets/images/floatingEye.gif"' + 'class = "WidthnHeighPlanets"/>');
+                 }
+             }else{
+                 alert("Incorrect");
+                 $('#input1').val('');
+             }
+     })
+         $(button1).on("click", function(){
+             beginMission();
+         });
 }
-
-//moon dialog
-var moonDialog = [
-    "You have trouble finding an even surface to land your spacecraft, but eventually you manage to land without much difficulty and exit your ship. A signal of activity is coming from one locations, should you go explore?", "As you get closer to the signal, you can hear a beautiful sound echo from a cave in the distance. The harmonious sound lures you in its direction. You head down narrow steps made of ice, the space is tight and barely enough for one to squeeze through. There is a large body of water ahead past a small patch of ice at the bottom of the stairway. The beautiful sound bounces off the walls of the caven. It sounds of singing, but not of a single entity, but a choreographed orchestra of voices. As you emorse yourself in the singing, the voices hush and silence follows hushed whispers. It is difficult to see, but you can barely make out elegantly shapes moving in the water. They gather at a rocky area centered in the cavern and stare at you expectantly. They seem to be waiting for you to say something."
-]
 
 //explore moon
 function moonAdventure(){
     reset();
-    $('<p>' + moonDialog[0] + '</P>').appendTo("#Textbox");
-    $('<button id = "yes" >Explore</button>').appendTo("#buttonDialog");
-    $('<button id = "no" >Return to craft</button>').appendTo("#buttonDialog");
-
-    $('#yes').on("click", function(){
-        reset();
-        $('<p>' + moonDialog[1] + '</P>').appendTo("#Textbox");
-        $('<div id = "sirens"></div>').appendTo("#containerDiv")
-        $('#sirens').html('<img src = "http://38.media.tumblr.com/a2871961babf82eb790561693651c60e/tumblr_n8vg2vgVgJ1tggtmco1_500.gif"' + 'class = "WidthnHeighPlanets"/>');
-
-        var inputBox = $('<input></input>').appendTo('#buttonDialog');
-        var confirm = $('<button>Next</button>').appendTo('#buttonDialog');
-        $('<button id ="return">Return</button>').appendTo('#buttonDialog');
-
-        $(confirm).on("click", function(){
-            nameOfCreature = inputBox.val();
-
-            if(nameOfCreature.toLocaleLowerCase() === "siren" || nameOfCreature.toLocaleLowerCase() === "sirens"){
-                $('#Textbox').empty();
-                $('#buttonDialog').empty();
-
-                playerAndEnemyStats.enemyStats("siren");
-                playerAndEnemyStats.playerStatsinnerHTML();
-                playerAndEnemyStats.enemyStatsinnerHTML();
-                initialAttack.attackFunction();
-            }else{
-                alert("Incorrect")
-            }
-        })
-        $('#return').on("click",function(){
-            moonAdventure();
-        })
-
-    })
-    $('#no').on("click", function(){
-        reset();
-        beginMission();
-    })
+    playerAndEnemyStats.enemyStats("siren");
+    playerAndEnemyStats.playerStatsinnerHTML();
+    playerAndEnemyStats.enemyStatsinnerHTML();
+    initialAttack.attackFunction();
 
 }
