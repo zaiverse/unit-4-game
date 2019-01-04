@@ -82,14 +82,6 @@ let playerAndEnemyStats ={
 
 }
 
-var robotDialog = [
-    'I see their signal finally had their desired outcome. Much too late I fear.','You received a signal recently, have you not?', 'No, we were created by the species you seek, but we are not them. The ones you are searching for are known as human kind among us. We are mechanical inventions created by the human species to lessen their work load. From years of inivation, we were born and set to work alongside human kind','', ''
-]
-
-var buttonMarsDialog = [
-    'what are you talking about?', 'Yes, I was sent to investigate a signal sent by an intelligent species. Would that happen to be your kind?','What happened to their kind?',''
-]
-
 //create a function that accesses the player and enemy info to intiate //attack when a button is clicked.
 let initialAttack = {
     attackFunction: function(){
@@ -151,8 +143,8 @@ let initialAttack = {
 
                if(enemy.enemyType === "siren"){
                     reset();
-                    $('<h3>The sirens begin to sing in unison the following words </h3>').appendTo("#Textbox");
-                    $('<p>Name the three urban legends that remain on Earth and the ones that remain will acknowledge your presence</p>').appendTo("#Textbox");
+                    $('<h3>The creature seems to have dropped something, it reads: </h3>').appendTo("#Textbox");
+                    $('<p>Name the three urban legends you fight on Earth to unlock the planet Mars</p>').appendTo("#Textbox");
                     $("<button id = 'continueBack'>Continue</button>").appendTo('#buttonDialog');
                     $('#continueBack').on("click", function(){
                     reset();
@@ -315,7 +307,7 @@ function continueGame(){
 //explore Earth
 function earthAdventure(){
     $('<p>Which area would you like to explore?</p>').appendTo('#Textbox');
-    $('<button id = "woodenStructure">Abandoned wooden structure</button>').appendTo('#buttonDialog');
+    $('<button id = "woodenStructure" class = "col-lg-12">Abandoned wooden structure</button>').appendTo('#buttonDialog');
     $('#woodenStructure').on("click", function(){
         reset();
             playerAndEnemyStats.enemyStats("spider");
@@ -327,7 +319,7 @@ function earthAdventure(){
 
         })
 
-    $('<button id ="shroudedForest">Shrouded forest</button>').appendTo('#buttonDialog');
+    $('<button id ="shroudedForest" class = "col-lg-12">Shrouded forest</button>').appendTo('#buttonDialog');
     $('#shroudedForest').on("click", function(){
             reset();
             playerAndEnemyStats.enemyStats("Eye");
@@ -338,7 +330,7 @@ function earthAdventure(){
             $('#eye').html('<img src = "assets/images/floatingEye.gif"' + 'class = "WidthnHeighPlanets"/>');
     })
 
-    $('<button id ="rockyWaterfall" >Rocky Waterfall</button>').appendTo('#buttonDialog');
+    $('<button id ="rockyWaterfall" class = "col-lg-12">Rocky Waterfall</button>').appendTo('#buttonDialog');
     $('#rockyWaterfall').on("click", function(){
             reset();
             playerAndEnemyStats.enemyStats("weirdTurtle");
@@ -350,7 +342,7 @@ function earthAdventure(){
         
     })
 
-    $('<button id ="spaceCraft">Back to spacecraft</button>').appendTo('#buttonDialog');
+    $('<button id ="spaceCraft" class = "col-lg-12">Back to spacecraft</button>').appendTo('#buttonDialog');
     $('#spaceCraft').on("click", function(){
         reset();
         beginMission();
@@ -383,7 +375,7 @@ function MarsAdventure(){
                      playerAndEnemyStats.enemyStatsinnerHTML();
                      initialAttack.attackFunction();
                      $('<div id = "eye"></div>').appendTo("#containerDiv")
-                     $('#eye').html('<img src = "assets/images/floatingEye.gif"' + 'class = "WidthnHeighPlanets"/>');
+                     $('#eye').html('<img src = "https://1b-f.s3.eu-west-1.amazonaws.com/a/83751-2F0053E2-B6D7-4E6E-B81D-7DCE62AF566B-0-1509640849.gif"' + 'class = "WidthnHeighPlanets"/>');
                  }
              }else{
                  alert("Incorrect");
@@ -402,5 +394,6 @@ function moonAdventure(){
     playerAndEnemyStats.playerStatsinnerHTML();
     playerAndEnemyStats.enemyStatsinnerHTML();
     initialAttack.attackFunction();
-
+    $('<div id = "creature"></div>').appendTo("#containerDiv")
+    $('#creature').html('<img src = "https://media.giphy.com/media/iSF7WLaBAIM0/giphy.gif"' + 'class = "WidthnHeighPlanets"/>');
 }
